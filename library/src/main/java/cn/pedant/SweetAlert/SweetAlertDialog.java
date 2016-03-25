@@ -34,6 +34,8 @@ public class SweetAlertDialog extends Dialog implements View.OnClickListener {
     private TextView mContentTextView;
     private String mTitleText;
     private String mContentText;
+    private int mConfirmButtonColor;
+    private boolean mShowConfirm;
     private boolean mShowCancel;
     private boolean mShowContent;
     private String mCancelText;
@@ -171,9 +173,13 @@ public class SweetAlertDialog extends Dialog implements View.OnClickListener {
         mSuccessFrame.setVisibility(View.GONE);
         mWarningFrame.setVisibility(View.GONE);
         mProgressFrame.setVisibility(View.GONE);
-        mConfirmButton.setVisibility(View.VISIBLE);
 
-        mConfirmButton.setBackgroundResource(R.drawable.blue_button_background);
+        if (mShowConfirm) {
+            mConfirmButton.setVisibility(View.VISIBLE);
+        } else {
+            mConfirmButton.setVisibility(View.GONE);
+        }
+
         mErrorFrame.clearAnimation();
         mErrorX.clearAnimation();
         mSuccessTick.clearAnimation();
@@ -274,6 +280,34 @@ public class SweetAlertDialog extends Dialog implements View.OnClickListener {
         return this;
     }
 
+    public int getConfirmButtonColor() {
+        if (mConfirmButton != null) {
+            return mConfirmButton.getCurrentTextColor();
+        }
+
+        return mConfirmButtonColor;
+    }
+
+    public void setConfirmButtonColor(int color) {
+        if (mConfirmButton != null) {
+            mConfirmButtonColor = color;
+            mConfirmButton.setTextColor(mConfirmButtonColor);
+        }
+    }
+
+    public boolean isShowConfirmButton() {
+        return mShowConfirm;
+    }
+
+    public SweetAlertDialog showConfirmButton (boolean isShow) {
+        mShowConfirm = isShow;
+        if (mConfirmButton != null) {
+            mConfirmButton.setVisibility(mShowConfirm ? View.VISIBLE : View.GONE);
+        }
+
+        return this;
+    }
+
     public boolean isShowCancelButton () {
         return mShowCancel;
     }
@@ -318,6 +352,11 @@ public class SweetAlertDialog extends Dialog implements View.OnClickListener {
     public SweetAlertDialog setConfirmText (String text) {
         mConfirmText = text;
         if (mConfirmButton != null && mConfirmText != null) {
+
+            if (mConfirmButtonColor > 0) {
+                mConfirmButton.setTextColor(mConfirmButtonColor);
+            }
+
             mConfirmButton.setText(mConfirmText);
         }
         return this;

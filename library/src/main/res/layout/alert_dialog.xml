@@ -8,7 +8,7 @@
     android:layout_gravity="center"
     android:orientation="vertical"
     android:background="@drawable/dialog_background"
-    android:padding="10dp">
+    android:padding="15dp">
 
     <ImageView
         android:id="@+id/custom_image"
@@ -154,7 +154,11 @@
 
         <Button
             android:id="@+id/confirm_button"
-            style="@style/dialog_blue_button"
-            android:text="@string/dialog_ok" />
+            android:text="@string/dialog_ok"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="#00ffffff"
+            android:textColor="@android:color/holo_blue_dark"
+            android:textStyle="bold"/>
     </LinearLayout>
 </LinearLayout>
